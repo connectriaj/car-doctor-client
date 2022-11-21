@@ -3,15 +3,16 @@ import { Form, Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-const Login = () => {
-  const { loginUser } = useContext(AuthContext);
+const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
 
-  const handleLogin = (event) => {
+  const handleSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
-    const password = form.password.value;
-    loginUser(email, password)
+      const password = form.password.value;
+      
+    createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
@@ -27,9 +28,22 @@ const Login = () => {
         </div>
 
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100  p-16">
-          <h1 className="text-5xl font-bold text-center">Login</h1>
+          <h1 className="text-5xl font-bold text-center">Sign Up</h1>
 
-          <Form onSubmit={handleLogin} className="card-body">
+          <Form onSubmit={handleSignUp} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="name"
+                className="input input-bordered"
+                name="name"
+                required
+              />
+            </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -53,24 +67,28 @@ const Login = () => {
                 name="password"
                 required
               />
-              <label className="label">
+              {/* <label className="label">
                 <Link
                   to=""
                   className="label-text-alt link link-hover text-error"
                 >
                   Forgot password?
                 </Link>
-              </label>
+              </label> */}
             </div>
             <div className="form-control mt-6">
-              <input className="btn btn-warning" type="submit" value="Login" />
+              <input
+                className="btn btn-warning"
+                type="submit"
+                value="Sign Up"
+              />
             </div>
           </Form>
           <p className="text-center">
-            New to Car Doctor?
-            <Link className="text-orange-600 font-semibold" to="/signup">
-              Sign Up
-            </Link>{" "}
+            Already have an account?
+            <Link className="text-orange-600 font-semibold" to="/login">
+              Login
+            </Link>
           </p>
         </div>
       </div>
@@ -78,4 +96,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
